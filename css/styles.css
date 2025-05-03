@@ -116,7 +116,7 @@
 @layer structure {
 	.container {
 		display: grid;
-		grid-template-columns: clamp(200px, 25vw, 320px) 1fr;
+		grid-template-columns: min-content 1fr;
 		grid-template-rows: auto 1fr;
 	}
 
@@ -132,14 +132,24 @@
 	.bottom-header {
 		display: flex;
 		gap: 1rem;
-		padding-inline: 2.5rem;
+		padding-inline: clamp(0.5rem, 3vw, 2.5rem);
 		padding-block: 1rem;
 		justify-content: space-between;
 		align-items: center;
+
+		flex-wrap: wrap;
 	}
 
-	.top-header input {
-		flex-basis: max(250px, 40vw);
+	.header-start,
+	.header-end {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.header-start input {
+		width: min(max(200px, 40vw), 100%);
 	}
 
 	.top-header .profile {
@@ -209,7 +219,12 @@
 
 	.button-frame {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 1rem;
+	}
+
+	.btn {
+		flex-grow: 1;
 	}
 
 	.feed {
@@ -263,7 +278,7 @@
 	.sidebar {
 		background-color: var(--main-brand-color);
 		color: var(--text-on-brand);
-		padding: 2rem;
+		padding: clamp(0.5rem, 2vw, 2rem);
 	}
 
 	.sidebar .svg g path {
@@ -280,7 +295,6 @@
 		background-color: var(--bg-color);
 		border-radius: 24px;
 		padding: 0.375rem 1rem;
-		margin-inline-end: auto;
 	}
 
 	.name {
@@ -349,9 +363,7 @@
 		font-size: var(--step-3);
 		font-weight: bold;
 	}
-}
 
-@layer test {
 	.small,
 	.big {
 		width: 64px;
@@ -370,5 +382,31 @@
 		height: 100%;
 		object-fit: cover;
 		object-position: top;
+	}
+}
+
+@layer test {
+	.sticker {
+		position: sticky;
+		top: clamp(0.5rem, 2vw, 2rem);
+	}
+
+	@media (width <= 850px) {
+		.main {
+			grid-template-columns: 1fr;
+		}
+
+		.logo span {
+			display: none;
+		}
+
+		.nav_item span {
+			display: none;
+		}
+
+		.first_nav,
+		.second_nav {
+			align-items: center;
+		}
 	}
 }
